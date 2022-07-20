@@ -1,8 +1,6 @@
 #!/bin/bash
-
 echo -e "\e[1m\e[32m1. Enter Forta passphrase(passwrod) \e[0m"
 read -p "Forta Passphrase: " FORTA_PASSPHRASE
-
 echo -e "\e[1m\e[32m2. Enter owner address(any metamask address that you have access to) \e[0m"
 read -p "Forta Owner Address: " FORTA_OWNER_ADDRESS
 echo -e "\e[1m\e[32m3. Select desired chain id. Chain id must match your RPC chain URL!!! \e[0m"
@@ -26,7 +24,6 @@ do
       ;;
   esac
 done
-
 echo -e "\e[1m\e[32m4. Enter RPC url \e[0m"
 read -p "Enter RPC url: " FORTA_RPC_URL
 
@@ -125,7 +122,7 @@ nano $HOME/.forta/config.yml
 
 echo "=================================================="
 
-echo -e "\e[1m\e[32m10. If you need to change the scan address through filezilla, create a folder forta.service.d and a file in it env.conf, run the node \e[0m \n" && sleep 1
+echo -e "\e[1m\e[32m10. Поменяй если нужно скан адресс через файлзиллу, создай папку forta.service.d и файл в ней env.conf, запусти ноду \e[0m \n" && sleep 1
 
 echo "=================================================="
 
