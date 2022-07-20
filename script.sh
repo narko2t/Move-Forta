@@ -5,7 +5,6 @@ read -p "Forta Passphrase: " FORTA_PASSPHRASE
 
 echo -e "\e[1m\e[32m2. Enter owner address(any metamask address that you have access to) \e[0m"
 read -p "Forta Owner Address: " FORTA_OWNER_ADDRESS
-
 echo -e "\e[1m\e[32m3. Select desired chain id. Chain id must match your RPC chain URL!!! \e[0m"
 PS3='Please enter your choice: '
 options=(
