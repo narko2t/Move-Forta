@@ -3,27 +3,8 @@ echo -e "\e[1m\e[32m1. Enter Forta passphrase(passwrod) \e[0m"
 read -p "Forta Passphrase: " FORTA_PASSPHRASE
 echo -e "\e[1m\e[32m2. Enter owner address(any metamask address that you have access to) \e[0m"
 read -p "Forta Owner Address: " FORTA_OWNER_ADDRESS
-echo -e "\e[1m\e[32m3. Select desired chain id. Chain id must match your RPC chain URL!!! \e[0m"
-PS3='Please enter your choice: '
-options=(
-    "1 - ETH" 
-    "56 - BSC" 
-    "137 - Polygon" 
-    "43114 - Avalanche" 
-    "42161 - Arbitrum" 
-    "10 - Optimism")
-select opt in "${options[@]}"
-do
-  case "$REPLY" in
-    1|2|3|4|5|6)
-      echo "Greath Choice!"
-      break
-      ;;
-    *) 
-      echo "Invalid option $REPLY"
-      ;;
-  esac
-done
+echo -e "\e[1m\e[32m3. Chain id=Polygon (137)\e[0m"
+read -p "Chain id: " CHAIN_ID
 echo -e "\e[1m\e[32m4. Enter RPC url \e[0m"
 read -p "Enter RPC url: " FORTA_RPC_URL
 
@@ -32,18 +13,7 @@ echo "=================================================="
 echo -e "\e[1m\e[32m Forta Passphrase: \e[0m" $FORTA_PASSPHRASE
 echo -e "\e[1m\e[32m Forta Owner Address:  \e[0m" $FORTA_OWNER_ADDRESS
 echo -e "\e[1m\e[32m RPC url:  \e[0m" $FORTA_RPC_URL
-echo -e "\e[1m\e[32m Forta Chain Id:  \e[0m" $REPLY
-
-while true; do
-    read -p "Please make sure that is everything is correct [Y/n]? " rmv
-    rmv=${rmv,,}                                 # lower the letters in the rmv variable
-    case $rmv in
-        [y]* ) echo "YES"; break;;
-        #[] ) echo "Enter Key"; break;;
-        [n]* ) echo "NO"; exit;;
-        * ) echo "Please answer yes or no! ";;   # repeat until valid answer
-    esac
-done
+echo -e "\e[1m\e[32m Forta Chain Id:  \e[0m" $CHAIN_ID
 
 echo -e "\e[1m\e[32m5. Updating list of dependencies... \e[0m" && sleep 1
 sudo apt-get update
@@ -117,7 +87,7 @@ if [ -z "$FORTA_SCANNER_ADDRESS" ]; then
 fi
 
 sed -i 's,<required>,'$FORTA_RPC_URL',g' $HOME/.forta/config.yml
-sed -i 's/chainId: .*/chainId: '$REPLY'/g' $HOME/.forta/config.yml
+sed -i 's/chainId: .*/chainId: '$CHAIN_ID'/g' $HOME/.forta/config.yml
 nano $HOME/.forta/config.yml
 
 echo "=================================================="
