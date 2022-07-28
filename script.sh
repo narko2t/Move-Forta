@@ -21,26 +21,13 @@ cd $HOME
 
 echo "=================================================="
 
-echo -e "\e[1m\e[32m6. Verifying Docker version... \e[0m" && sleep 1
-
-if [[ $(docker version -f "{{.Server.Version}}") != "20.10."* ]]; then
-    echo -e "\e[1m\e[32m6.2 Updating/Installing Docker... \e[0m" && sleep 1
-    sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-    sudo apt-cache policy docker-ce
-    sudo apt install docker-ce -y
-    docker version -f "{{.Server.Version}}"
-fi
-
-echo "=================================================="
-
-echo -e "\e[1m\e[32m7. Check if Docker service is active... \e[0m" && sleep 1
-
-if [[ $(systemctl is-active docker) != "active" ]]; then
-    echo -e "\e[91m Docker service is not active, please make sure that Docker is working properly and try again later. \e[0m" && sleep 1
-    exit
-fi
+echo -e "\e[1m\e[32m6. Installing Docker version... \e[0m" && sleep 1
+sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+sudo apt-cache policy docker-ce
+sudo apt install docker-ce -y
+docker version -f "{{.Server.Version}}"
 
 echo "=================================================="
 
@@ -70,22 +57,14 @@ echo '{
     ]
 }' > /etc/docker/daemon.json
 sudo systemctl restart docker
-if [[ $(systemctl is-active docker) != "active" ]]; then
-    echo -e "\e[91m Docker service is not active, please make sure that Docker is working properly and try again later. \e[0m" && sleep 1
-    exit
-fi
+systemctl is-active docker && sleep 1
 sudo mkdir -p /lib/systemd/system/forta.service.d
-
 echo "[Service]
 Environment='FORTA_DIR=$HOME/.forta'
 Environment='FORTA_PASSPHRASE=$FORTA_PASSPHRASE'" > /lib/systemd/system/forta.service.d/env.conf
+sleep 1
 
 FORTA_SCANNER_ADDRESS=$(forta init --passphrase $FORTA_PASSPHRASE | awk '/Scanner address: /{print $3}') && sleep 2
-if [ -z "$FORTA_SCANNER_ADDRESS" ]; then
-    echo -e "\e[91m Wasn't able execute forta init, possible reason is that fora was already initiated before. \e[0m" && sleep 1
-    exit
-fi
-
 sed -i 's,<required>,'$FORTA_RPC_URL',g' $HOME/.forta/config.yml
 sed -i 's/chainId: .*/chainId: '$CHAIN_ID'/g' $HOME/.forta/config.yml
 nano $HOME/.forta/config.yml
