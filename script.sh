@@ -3,7 +3,7 @@ echo -e "\e[1m\e[32m1. Enter Forta passphrase(passwrod) \e[0m"
 read -p "Forta Passphrase: " FORTA_PASSPHRASE
 echo -e "\e[1m\e[32m2. Enter owner address(any metamask address that you have access to) \e[0m"
 read -p "Forta Owner Address: " FORTA_OWNER_ADDRESS
-echo -e "\e[1m\e[32m3. Chain id=Polygon (137)\e[0m"
+echo -e "\e[1m\e[32m3. Chain id=(13756 - BSC,137 - Polygon,43114 - Avalanche,42161 - Arbitrum,10 - Optimism)\e[0m"
 read -p "Chain id: " CHAIN_ID
 echo -e "\e[1m\e[32m4. Enter RPC url \e[0m"
 read -p "Enter RPC url: " FORTA_RPC_URL
