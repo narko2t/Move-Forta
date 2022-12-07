@@ -85,9 +85,6 @@ echo "=================================================="
 echo -e "\e[1m\e[32mTo check status: \e[0m" 
 echo -e "\e[1m\e[39mforta status \n \e[0m"
 
-echo -e "\e[1m\e[32mYour scanner address: \e[0m" 
-echo -e "\e[1m\e[39mforta account address \n \e[0m"
-
 echo -e "\e[1m\e[32mYour owner address: \e[0m" 
 echo -e "\e[1m\e[39m$FORTA_OWNER_ADDRESS \n \e[0m" 
 
